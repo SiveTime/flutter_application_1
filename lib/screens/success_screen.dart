@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'leaderboard_screen.dart';
+import 'impact_dashboard_screen.dart'; // Import halaman dashboard dampak
 import 'report_form_screen.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -16,14 +16,25 @@ class SuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.check_circle, size: 100, color: AppColors.success),
+              // Logo diperbesar menjadi 150
+              const Icon(Icons.check_circle, size: 150, color: AppColors.success),
               const SizedBox(height: 20),
-              const Text("Laporan Berhasil\nDikirim!", textAlign: TextAlign.center, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              const Text(
+                "Laporan Berhasil\nDikirim!", 
+                textAlign: TextAlign.center, 
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)
+              ),
               const SizedBox(height: 30),
               
               const CircleAvatar(
                 radius: 40, backgroundColor: Colors.white,
-                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.explore, color: AppColors.primary), Text("Nautiport", style: TextStyle(fontSize: 10))]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  children: [
+                    Icon(Icons.explore, color: AppColors.primary), 
+                    Text("Nautiport", style: TextStyle(fontSize: 10))
+                  ]
+                ),
               ),
               const SizedBox(height: 20),
               
@@ -34,16 +45,32 @@ class SuccessScreen extends StatelessWidget {
               ]),
               const SizedBox(height: 40),
 
+              // Button diganti teks dan navigasinya
               ElevatedButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LeaderboardScreen())),
+                onPressed: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => const ImpactDashboardScreen())
+                  );
+                },
                 style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
-                child: const Text("LIHAT LEADERBOARD"),
+                child: const Text("LIHAT DASHBOARD"),
               ),
               const SizedBox(height: 20),
               
               GestureDetector(
-                onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ReportFormScreen())),
-                child: const Text("[Buat Laporan Baru]", style: TextStyle(color: AppColors.primaryDark, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
+                onTap: () => Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const ReportFormScreen())
+                ),
+                child: const Text(
+                  "[Buat Laporan Baru]", 
+                  style: TextStyle(
+                    color: AppColors.primaryDark, 
+                    fontWeight: FontWeight.bold, 
+                    decoration: TextDecoration.underline
+                  )
+                ),
               ),
             ],
           ),
