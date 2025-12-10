@@ -11,16 +11,8 @@ class ImpactDashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Dashboard Dampak"),
         centerTitle: true,
-        // Menambahkan tombol kembali
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Cek apakah bisa kembali (jika di-push dari halaman lain)
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
-        ),
+        automaticallyImplyLeading: true, // Biarkan Flutter mengatur tombol back otomatis
+        // Hapus leading manual agar tidak membingungkan saat jadi tab utama
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),

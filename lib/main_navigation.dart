@@ -4,26 +4,39 @@ import 'screens/home_screen.dart';
 import 'screens/impact_dashboard_screen.dart';
 import 'screens/leaderboard_screen.dart';
 import 'screens/report_form_screen.dart';
+import 'screens/map_screen.dart'; // Import halaman peta
+import 'screens/profil_screen.dart'; // Import halaman profil
 
 class MainNavigationWrapper extends StatefulWidget {
-  const MainNavigationWrapper({super.key});
+  final int initialIndex; // Parameter untuk menentukan tab awal
+
+  const MainNavigationWrapper({super.key, this.initialIndex = 0});
+
   @override
   State<MainNavigationWrapper> createState() => _MainNavigationWrapperState();
 }
 
 class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
-  int _currentIndex = 0;
+  late int _currentIndex;
 
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex; // Set tab awal sesuai parameter
+  }
+
+  // Daftar halaman untuk Bottom Navigation
   final List<Widget> _pages = [
-    const HomeScreen(),
-    const Center(child: Text("Halaman Peta (Segera Hadir)")),
-    const SizedBox(), // Placeholder untuk index 2 (Lapor)
-    const ImpactDashboardScreen(),
-    const LeaderboardScreen(),
+    const HomeScreen(),            // Index 0: Home
+    const MapScreen(),             // Index 1: Peta (Sudah diimplementasikan)
+    const SizedBox(),              // Index 2: Placeholder Lapor (Button khusus)
+    const ImpactDashboardScreen(), // Index 3: Aktivitas/Dampak
+    const ProfileScreen(),         // Index 4: Profil (Sebelumnya Leaderboard, diperbaiki)
   ];
 
   void _onItemTapped(int index) {
     if (index == 2) {
+      // Logika khusus untuk tombol tengah (Lapor)
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const ReportFormScreen()),
@@ -38,12 +51,15 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         color: const Color(0xFF1E2832),
-        height: 80, // Diperbesar agar tidak overflow (sebelumnya 70 atau default)
-        padding: EdgeInsets.zero, // Reset padding bawaan agar Row bisa full width/height
+        height: 80,
+        padding: EdgeInsets.zero,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -65,7 +81,6 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
       onTap: () => _onItemTapped(index),
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        // Mengurangi padding vertikal agar muat dalam tinggi 80px
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), 
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -73,7 +88,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
           children: [
             Icon(
               icon,
-              size: index == 2 ? 30 : 24, // Sedikit disesuaikan ukurannya (30 untuk Lapor)
+              size: index == 2 ? 30 : 24,
               color: isSelected ? AppColors.primary : Colors.grey,
             ),
             const SizedBox(height: 4),

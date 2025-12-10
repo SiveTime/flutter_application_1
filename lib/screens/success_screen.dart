@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'impact_dashboard_screen.dart'; // Import halaman dashboard dampak
+import '../main_navigation.dart'; // Import Main Navigation
 import 'report_form_screen.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -16,7 +16,6 @@ class SuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo diperbesar menjadi 150
               const Icon(Icons.check_circle, size: 150, color: AppColors.success),
               const SizedBox(height: 20),
               const Text(
@@ -45,16 +44,21 @@ class SuccessScreen extends StatelessWidget {
               ]),
               const SizedBox(height: 40),
 
-              // Button diganti teks dan navigasinya
+              // PERBAIKAN NAVIGASI DI SINI
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  // Menggunakan pushAndRemoveUntil untuk mereset stack navigasi
+                  // dan membuka MainNavigationWrapper langsung di tab index 3 (Dashboard Dampak)
+                  Navigator.pushAndRemoveUntil(
                     context, 
-                    MaterialPageRoute(builder: (context) => const ImpactDashboardScreen())
+                    MaterialPageRoute(
+                      builder: (context) => const MainNavigationWrapper(initialIndex: 3)
+                    ),
+                    (route) => false, // Hapus semua halaman sebelumnya dari memori
                   );
                 },
                 style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
-                child: const Text("LIHAT DASHBOARD"),
+                child: const Text("LIHAT DASHBOARD", style: TextStyle(fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: 20),
               
