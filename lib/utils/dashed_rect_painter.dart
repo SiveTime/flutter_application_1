@@ -18,15 +18,15 @@ class DashedRectPainter extends CustomPainter {
     double x = size.width;
     double y = size.height;
 
-    Path _topPath = getDashedPath(a: const Point(0, 0), b: Point(x, 0), gap: gap);
-    Path _rightPath = getDashedPath(a: Point(x, 0), b: Point(x, y), gap: gap);
-    Path _bottomPath = getDashedPath(a: Point(0, y), b: Point(x, y), gap: gap);
-    Path _leftPath = getDashedPath(a: const Point(0, 0), b: Point(0, y), gap: gap);
+    Path topPath = getDashedPath(a: const Point(0, 0), b: Point(x, 0), gap: gap);
+    Path rightPath = getDashedPath(a: Point(x, 0), b: Point(x, y), gap: gap);
+    Path bottomPath = getDashedPath(a: Point(0, y), b: Point(x, y), gap: gap);
+    Path leftPath = getDashedPath(a: const Point(0, 0), b: Point(0, y), gap: gap);
 
-    canvas.drawPath(_topPath, dashedPaint);
-    canvas.drawPath(_rightPath, dashedPaint);
-    canvas.drawPath(_bottomPath, dashedPaint);
-    canvas.drawPath(_leftPath, dashedPaint);
+    canvas.drawPath(topPath, dashedPaint);
+    canvas.drawPath(rightPath, dashedPaint);
+    canvas.drawPath(bottomPath, dashedPaint);
+    canvas.drawPath(leftPath, dashedPaint);
   }
 
   Path getDashedPath({required Point<double> a, required Point<double> b, required double gap}) {

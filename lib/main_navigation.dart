@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'theme/app_colors.dart';
 import 'screens/home_screen.dart';
 import 'screens/impact_dashboard_screen.dart';
-import 'screens/leaderboard_screen.dart';
 import 'screens/report_form_screen.dart';
 import 'screens/map_screen.dart'; // Import halaman peta
 import 'screens/profil_screen.dart'; // Import halaman profil
